@@ -4,8 +4,10 @@ import React, { use } from "react";
 import { Container, Section } from "@/components/ui/LayoutUtils";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
-import { Check, Star, Download, ShieldCheck, Globe, CreditCard } from "lucide-react";
+import { Check, Star, Download, ShieldCheck, Globe, CreditCard, ShoppingCart } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import { products } from "@/data/products";
+import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
 
 interface PageProps {
@@ -14,27 +16,24 @@ interface PageProps {
 
 export default function ProductDetailsPage({ params }: PageProps) {
   const { id } = use(params);
+  const { addItem, openCart } = useCartStore();
 
-  // Mock data for a single product
-  const product = {
-    id,
-    title: "Minimal UI Kit",
-    category: "Design",
-    price: 49,
-    description: "The ultimate UI kit for modern web applications. Featuring over 200+ components, 50+ templates, and a comprehensive design system that follows best practices. Built for designers and developers who value speed and aesthetics.",
-    features: [
-      "200+ Premium Components",
-      "Auto-layout & Variants",
-      "Light & Dark Mode ready",
-      "Free Lifetime Updates",
-      "Documentation Included",
-      "Commercial License"
-    ],
-    faqs: [
-      { q: "What files are included?", a: "You will receive a Figma file (.fig) and a documentation PDF." },
-      { q: "Can I use this for client projects?", a: "Yes, the commercial license allows use in unlimited personal and client projects." },
-      { q: "How do I get updates?", a: "Updates are sent via email and can also be downloaded from your account dashboard." }
-    ]
+  const product = products.find((p) => p.id === id);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
+          <Button onClick={() => window.history.back()}>Go Back</Button>
+        </div>
+      </div>
+    );
+  }
+
+  const handleAddToCart = () => {
+    addItem(product);
+    openCart();
   };
 
   return (
@@ -47,9 +46,16 @@ export default function ProductDetailsPage({ params }: PageProps) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="aspect-[4/3] bg-neutral-100 rounded-3xl overflow-hidden border border-neutral-200 flex items-center justify-center text-neutral-400 font-bold"
+                className="aspect-[4/3] bg-neutral-100 rounded-[2.5rem] overflow-hidden border border-neutral-100 flex items-center justify-center text-neutral-400 font-bold premium-shadow"
               >
-                [ Primary Product Showcase ]
+                {product.image ? (
+                  <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="w-20 h-20 bg-neutral-200 rounded-full flex items-center justify-center animate-pulse" />
+                    <span className="text-xs uppercase tracking-[0.2em] opacity-50">Preview Generation</span>
+                  </div>
+                )}
               </motion.div>
               <div className="grid grid-cols-3 gap-6">
                 {[1, 2, 3].map((i) => (
@@ -58,9 +64,9 @@ export default function ProductDetailsPage({ params }: PageProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 * i }}
-                    className="aspect-square bg-neutral-50 rounded-2xl border border-neutral-100 flex items-center justify-center text-neutral-300 text-xs"
+                    className="aspect-square bg-neutral-50 rounded-2xl border border-neutral-100 flex items-center justify-center text-neutral-300 text-[10px] font-bold uppercase tracking-widest"
                   >
-                    Preview {i}
+                    View {i}
                   </motion.div>
                 ))}
               </div>
@@ -73,39 +79,39 @@ export default function ProductDetailsPage({ params }: PageProps) {
                 animate={{ opacity: 1, x: 0 }}
                 className="mb-8"
               >
-                <div className="flex items-center gap-3 mb-4">
-                   <span className="px-3 py-1 rounded-full bg-black text-white text-[10px] font-bold uppercase tracking-wider">New</span>
-                   <span className="text-neutral-400 text-sm font-medium">{product.category}</span>
+                <div className="flex items-center gap-3 mb-6">
+                   <span className="px-3 py-1 rounded-full bg-black text-white text-[10px] font-bold uppercase tracking-wider">New Release</span>
+                   <span className="text-neutral-400 text-xs font-bold uppercase tracking-widest">{product.category}</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">{product.title}</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 leading-tight">{product.title}</h1>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex text-yellow-400">
-                    {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={16} fill="currentColor" />)}
+                  <div className="flex text-black">
+                    {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={12} fill="currentColor" />)}
                   </div>
-                  <span className="text-sm text-neutral-500 font-medium">(48 Reviews)</span>
+                  <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest">4.9/5 from 82 Creators</span>
                 </div>
-                <p className="text-lg text-neutral-600 leading-relaxed mb-8">
+                <p className="text-sm md:text-base text-neutral-500 leading-relaxed mb-8 font-medium">
                   {product.description}
                 </p>
-                <div className="flex items-baseline gap-4 mb-10">
-                  <span className="text-4xl font-bold">{formatPrice(product.price)}</span>
-                  <span className="text-neutral-400 line-through">{formatPrice(product.price * 1.5)}</span>
+                <div className="flex items-baseline gap-3 mb-10">
+                  <span className="text-3xl font-bold tracking-tighter">{formatPrice(product.price)}</span>
+                  <span className="text-neutral-300 line-through text-lg font-medium">{formatPrice(product.price * 1.5)}</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                  <Button size="lg" className="flex-1 gap-2">
-                    <Download size={20} /> Purchase Now
+                <div className="flex flex-col sm:flex-row gap-3 mb-12">
+                  <Button size="lg" className="flex-[2] py-6 rounded-xl gap-2 text-sm" onClick={handleAddToCart}>
+                    <ShoppingCart size={18} /> Add to Cart
                   </Button>
-                  <Button variant="outline" size="lg" className="flex-1">
-                    Free Preview
+                  <Button variant="outline" size="lg" className="flex-1 py-6 rounded-xl text-sm">
+                    Free Trial
                   </Button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12">
                   {product.features.map((f, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm text-neutral-600">
-                      <div className="w-5 h-5 rounded-full bg-neutral-100 flex items-center justify-center text-black">
-                        <Check size={12} />
+                    <div key={i} className="flex items-center gap-4 text-sm font-bold text-neutral-600">
+                      <div className="w-6 h-6 rounded-full bg-neutral-100 flex items-center justify-center text-black">
+                        <Check size={14} strokeWidth={3} />
                       </div>
                       {f}
                     </div>
@@ -114,18 +120,24 @@ export default function ProductDetailsPage({ params }: PageProps) {
               </motion.div>
 
               {/* Trust badges */}
-              <div className="pt-10 border-t border-neutral-100 grid grid-cols-3 gap-4">
+              <div className="pt-12 mt-12 border-t border-neutral-100 grid grid-cols-3 gap-8">
                 <div className="text-center">
-                  <ShieldCheck className="mx-auto mb-2 text-neutral-400" size={24} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Secure Payment</p>
+                  <div className="w-12 h-12 bg-neutral-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-neutral-100">
+                    <ShieldCheck className="text-black" size={20} />
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Secure Assets</p>
                 </div>
                 <div className="text-center">
-                  <Globe className="mx-auto mb-2 text-neutral-400" size={24} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Global License</p>
+                  <div className="w-12 h-12 bg-neutral-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-neutral-100">
+                    <Globe className="text-black" size={20} />
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Global Use</p>
                 </div>
                 <div className="text-center">
-                  <CreditCard className="mx-auto mb-2 text-neutral-400" size={24} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Instant Access</p>
+                  <div className="w-12 h-12 bg-neutral-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-neutral-100">
+                    <CreditCard className="text-black" size={20} />
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Instant File</p>
                 </div>
               </div>
             </div>

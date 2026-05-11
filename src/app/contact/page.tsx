@@ -17,7 +17,7 @@ export default function ContactPage() {
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-5xl font-bold tracking-tight mb-8"
+                  className="text-3xl md:text-4xl font-bold tracking-tight mb-6"
                 >
                   Get in touch.
                 </motion.h1>
@@ -25,7 +25,7 @@ export default function ContactPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="text-xl text-neutral-500 leading-relaxed mb-12"
+                  className="text-base text-neutral-500 leading-relaxed mb-10"
                 >
                   Have a question about our products, licenses, or custom work? 
                   We're here to help. Reach out and we'll get back to you within 24 hours.

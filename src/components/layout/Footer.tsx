@@ -26,25 +26,25 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-50 pt-20 pb-10 border-t border-neutral-100">
+    <footer className="bg-neutral-50 pt-16 pb-8 border-t border-neutral-100">
       <Container>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           <div className="col-span-2 lg:col-span-2">
-            <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center gap-2 mb-6">
-              <span className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white text-xs">M</span>
+            <Link href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2 mb-5">
+              <span className="w-7 h-7 bg-black rounded-lg flex items-center justify-center text-white text-[10px]">M</span>
               MEMORIA
             </Link>
-            <p className="text-neutral-500 max-w-xs leading-relaxed">
+            <p className="text-neutral-500 text-sm max-w-xs leading-relaxed">
               Curating premium digital assets for the modern creator. Quality, elegance, and performance in every pixel.
             </p>
           </div>
 
           <div>
-            <h4 className="font-semibold text-neutral-900 mb-6">Shop</h4>
-            <ul className="space-y-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-900 mb-5">Shop</h4>
+            <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-neutral-500 hover:text-black transition-colors">
+                  <Link href={link.href} className="text-sm text-neutral-500 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -53,11 +53,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-neutral-900 mb-6">Company</h4>
-            <ul className="space-y-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-900 mb-5">Company</h4>
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-neutral-500 hover:text-black transition-colors">
+                  <Link href={link.href} className="text-sm text-neutral-500 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -66,11 +66,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-neutral-900 mb-6">Support</h4>
-            <ul className="space-y-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-900 mb-5">Support</h4>
+            <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-neutral-500 hover:text-black transition-colors">
+                  <Link href={link.href} className="text-sm text-neutral-500 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>

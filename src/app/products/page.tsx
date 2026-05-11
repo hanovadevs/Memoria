@@ -7,24 +7,15 @@ import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
 
-const allProducts = [
-  { id: "1", title: "Minimal UI Kit", category: "Design", price: 49, image: "" },
-  { id: "2", title: "Creator OS", category: "Notion Template", price: 29, image: "" },
-  { id: "3", title: "Brand Identity Pack", category: "Assets", price: 79, image: "" },
-  { id: "4", title: "Motion Presets", category: "Animation", price: 39, image: "" },
-  { id: "5", title: "Typeface Collection", category: "Typography", price: 59, image: "" },
-  { id: "6", title: "3D Icon Set", category: "Assets", price: 34, image: "" },
-  { id: "7", title: "Web Mockups", category: "Mockups", price: 24, image: "" },
-  { id: "8", title: "Video Effects", category: "Video", price: 45, image: "" },
-];
+import { products } from "@/data/products";
 
-const categories = ["All", "Design", "Assets", "Notion Template", "Animation", "Typography", "Mockups", "Video"];
+const categories = ["All", ...new Set(products.map(p => p.category))];
 
 export default function ProductsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredProducts = allProducts.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const matchesCategory = activeCategory === "All" || product.category === activeCategory;
     const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -36,8 +27,8 @@ export default function ProductsPage() {
         <Container>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">The Collection</h1>
-              <p className="text-neutral-500 max-w-md">Browse our curated library of premium digital assets designed for excellence.</p>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">The Collection</h1>
+              <p className="text-neutral-500 text-sm max-w-sm">Browse our curated library of premium digital assets designed for excellence.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 items-center">
