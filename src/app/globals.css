@@ -22,6 +22,8 @@
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
   --animate-reveal: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+
   @keyframes fadeUp {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -60,7 +62,7 @@ body {
   }
 
   .premium-shadow {
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+    @apply shadow-premium;
   }
 
   .premium-shadow-hover {
@@ -68,7 +70,7 @@ body {
   }
 
   .glass-card {
-    @apply bg-white/40 backdrop-blur-md border border-white/20 premium-shadow;
+    @apply bg-white/40 backdrop-blur-md border border-white/20 shadow-premium;
   }
 }
 
