@@ -16,22 +16,22 @@ const featuredProducts = products.slice(0, 4);
 
 const benefits = [
   {
-    icon: <Layers size={24} />,
+    icon: <Layers size={20} />,
     title: "Modular Design",
     description: "Built to be flexible and adaptable to any project or workflow."
   },
   {
-    icon: <Zap size={24} />,
+    icon: <Zap size={20} />,
     title: "Instant Access",
     description: "Download your assets immediately after purchase. No waiting."
   },
   {
-    icon: <Shield size={24} />,
+    icon: <Shield size={20} />,
     title: "Premium Quality",
     description: "Every asset is meticulously vetted for the highest standards."
   },
   {
-    icon: <Sparkles size={24} />,
+    icon: <Sparkles size={20} />,
     title: "Lifetime Updates",
     description: "Get all future improvements and updates for free, forever."
   }
@@ -91,7 +91,7 @@ export default function Home() {
                 className="flex flex-col items-start"
               >
                 <div className="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center mb-5">
-                  {React.cloneElement(benefit.icon as React.ReactElement, { size: 20 })}
+                  {benefit.icon}
                 </div>
                 <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
                 <p className="text-neutral-500 text-sm leading-relaxed">{benefit.description}</p>
