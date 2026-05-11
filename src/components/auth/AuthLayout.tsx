@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -34,12 +35,22 @@ export function AuthLayout({ children, title = "Secure Access", subtitle = "Auth
         className="absolute inset-0 bg-black z-50 flex flex-col items-center justify-center"
       >
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-white text-4xl font-bold tracking-[0.2em] uppercase"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col items-center gap-6"
         >
-          Memoria
+          <div className="relative w-24 h-24">
+            <Image 
+              src="/logo.png" 
+              alt="Memoria Logo" 
+              fill
+              className="object-contain brightness-200"
+            />
+          </div>
+          <div className="text-white text-3xl font-bold tracking-[0.4em] uppercase">
+            Memoria
+          </div>
         </motion.div>
       </motion.div>
 
@@ -55,8 +66,18 @@ export function AuthLayout({ children, title = "Secure Access", subtitle = "Auth
             {/* Subtle Inner Glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
             
-            <div className="relative z-10 space-y-8">
-              <div className="text-center space-y-2">
+            <div className="relative z-10 space-y-8 text-center">
+              <div className="flex justify-center">
+                <div className="relative w-12 h-12 mb-2">
+                  <Image 
+                    src="/logo.png" 
+                    alt="Memoria Logo" 
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.5 }}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "../ui/LayoutUtils";
 import { X } from "lucide-react";
 import { InstagramIcon, DribbbleIcon } from "../ui/SocialIcons";
@@ -30,9 +31,18 @@ export function Footer() {
       <Container>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           <div className="col-span-2 lg:col-span-2">
-            <Link href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2 mb-5">
-              <span className="w-7 h-7 bg-black rounded-lg flex items-center justify-center text-white text-[10px]">M</span>
-              MEMORIA
+            <Link href="/" className="flex items-center gap-3 mb-5 group">
+              <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-neutral-200">
+                <Image 
+                  src="/logo.png" 
+                  alt="Memoria Logo" 
+                  fill
+                  className="object-cover transition-transform group-hover:scale-110"
+                />
+              </div>
+              <span className="text-base font-bold tracking-[0.2em] uppercase">
+                MEMORIA
+              </span>
             </Link>
             <p className="text-neutral-500 text-sm max-w-xs leading-relaxed">
               Curating premium digital assets for the modern creator. Quality, elegance, and performance in every pixel.

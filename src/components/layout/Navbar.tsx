@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -40,9 +41,18 @@ export function Navbar() {
     >
       <Container>
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2">
-            <span className="w-7 h-7 bg-black rounded-lg flex items-center justify-center text-white text-[10px]">M</span>
-            MEMORIA
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-neutral-200/50 group-hover:border-neutral-300 transition-all">
+              <Image 
+                src="/logo.png" 
+                alt="Memoria Logo" 
+                fill
+                className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700"
+              />
+            </div>
+            <span className="text-base font-bold tracking-[0.2em] uppercase">
+              MEMORIA
+            </span>
           </Link>
 
           {/* Desktop Nav */}
